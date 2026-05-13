@@ -1,0 +1,17 @@
+{
+  "name": "code-review-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server/index.js",
+    "start": "node src/server/index.js",
+    "check": "node --check src/server/index.js && node --check src/server/github.js && node --check src/server/review.js && node --check src/server/llm/client.js"
+  },
+  "dependencies": {
+    "groq-sdk": "^0.32.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

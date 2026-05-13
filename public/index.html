@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Code Review App</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">PR Review Assistant</p>
+            <h1>Review GitHub pull requests against code quality and ticket intent.</h1>
+          </div>
+          <div class="auth-panel">
+            <div id="sessionStatus" class="session-status">Checking sign-in...</div>
+            <a id="signInLink" class="button secondary" href="/auth/github">Sign in with GitHub</a>
+            <button id="logoutButton" class="button ghost" type="button" hidden>Sign out</button>
+          </div>
+        </header>
+
+        <section class="review-layout">
+          <form id="reviewForm" class="review-form">
+            <label>
+              Pull request URL
+              <input
+                id="prUrl"
+                name="prUrl"
+                type="url"
+                placeholder="https://github.com/owner/repo/pull/123"
+                required
+              />
+            </label>
+
+            <label>
+              Ticket details
+              <textarea
+                id="ticketDetails"
+                name="ticketDetails"
+                rows="7"
+                placeholder="Paste acceptance criteria, user story, bug report, or expected behavior."
+              ></textarea>
+            </label>
+
+            <label>
+              Custom instructions
+              <textarea
+                id="customInstructions"
+                name="customInstructions"
+                rows="5"
+                placeholder="Example: focus on auth, data leakage, migration safety, and missing tests."
+              ></textarea>
+            </label>
+
+            <button id="reviewButton" class="button primary" type="submit">Run review</button>
+            <p id="formMessage" class="form-message" role="status"></p>
+          </form>
+
+          <aside class="report-panel">
+            <div class="report-header">
+              <div>
+                <p class="eyebrow">Review Output</p>
+                <h2 id="reportTitle">Analysis report</h2>
+              </div>
+              <span id="reviewMeta" class="meta-pill">No review yet</span>
+            </div>
+            <article id="report" class="report empty">
+              Sign in, paste a pull request URL, add ticket context if you have it, then run the review.
+            </article>
+          </aside>
+        </section>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
