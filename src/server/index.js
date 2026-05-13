@@ -90,12 +90,10 @@ async function route(request, response) {
 
   if (request.method === "POST" && url.pathname === "/api/review") {
     const session = getSession(cookies);
-    if (!session) throw httpError(401, "Sign in with GitHub before reviewing a PR.");
-
     const body = await readJson(request);
     const result = await createReview({
       ...body,
-      accessToken: session.accessToken
+      accessToken: session?.accessToken || null
     });
     sendJson(response, 200, result);
     return;
@@ -139,8 +137,6 @@ function sendJson(response, status, body, headers = {}) {
 
 function ensureGitHubConfig() {
   if (!config.githubClientId || !config.githubClientSecret) {
-    console.log(config);
-    
     throw httpError(500, "GitHub OAuth is not configured.");
   }
 }

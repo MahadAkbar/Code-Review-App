@@ -95,17 +95,26 @@ export async function fetchPullRequestPackage(prUrl, accessToken) {
 }
 
 async function githubRequest(url, accessToken) {
+  const headers = {
+    accept: "application/vnd.github+json",
+    "user-agent": "code-review-app"
+  };
+
+  if (accessToken) {
+    headers.authorization = `Bearer ${accessToken}`;
+  }
+
   const response = await fetch(url, {
-    headers: {
-      accept: "application/vnd.github+json",
-      authorization: `Bearer ${accessToken}`,
-      "user-agent": "code-review-app"
-    }
+    headers
   });
 
   const body = await response.json().catch(() => ({}));
   if (!response.ok) {
-    throw httpError(response.status, body.message || "GitHub API request failed.");
+    const authHint =
+      response.status === 404 || response.status === 403
+        ? " If this is a private repo or GitHub rate limit issue, sign in with GitHub and try again."
+        : "";
+    throw httpError(response.status, `${body.message || "GitHub API request failed."}${authHint}`);
   }
 
   return body;

@@ -20,11 +20,6 @@ logoutButton.addEventListener("click", async () => {
 reviewForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  if (!authenticated) {
-    setMessage("Sign in with GitHub before running a review.", true);
-    return;
-  }
-
   setLoading(true);
   setMessage("Fetching PR changes and asking the reviewer...");
   report.className = "report loading";
@@ -61,18 +56,15 @@ async function loadSession() {
   authenticated = session.authenticated;
 
   if (!session.githubConfigured) {
-    sessionStatus.textContent = "GitHub OAuth is not configured";
+    sessionStatus.textContent = "Public PR review enabled";
     signInLink.hidden = true;
     logoutButton.hidden = true;
-    return;
-  }
-
-  if (authenticated) {
+  } else if (authenticated) {
     sessionStatus.textContent = `Signed in as ${session.profile.login}`;
     signInLink.hidden = true;
     logoutButton.hidden = false;
   } else {
-    sessionStatus.textContent = "Not signed in";
+    sessionStatus.textContent = "Public PR review enabled";
     signInLink.hidden = false;
     logoutButton.hidden = true;
   }

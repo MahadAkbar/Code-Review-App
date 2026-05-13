@@ -33,7 +33,7 @@ export const config = {
   openAiApiKey: process.env.OPENAI_API_KEY || "",
   openAiModel: process.env.OPENAI_MODEL || "gpt-5.2",
   groqApiKey: process.env.GROQ_API_KEY || process.env.GROK_API_KEY || "",
-  groqModel: process.env.GROQ_MODEL || process.env.GROK_MODEL || "",
+  groqModel: process.env.GROQ_MODEL || process.env.GROK_MODEL || "llama-3.3-70b-versatile",
   port: Number(process.env.PORT || 3000),
   rootDir
 };

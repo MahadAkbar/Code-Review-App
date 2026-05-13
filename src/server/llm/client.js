@@ -120,15 +120,17 @@ function reviewSystemPrompt() {
 
 Return a concise Markdown report with these sections:
 1. Summary
-2. Requirement fit
-3. High-risk findings
-4. Security and privacy
-5. Best-practice issues
-6. Suggested changes
-7. Test recommendations
+2. Issue this PR solves
+3. Requirement fit
+4. High-risk findings
+5. Security and privacy
+6. Best-practice issues
+7. Suggested changes
+8. Test recommendations
 
 Rules:
 - If ticket details are present, explicitly assess whether the PR fulfills the ticket requirements.
+- In "Issue this PR solves", infer the problem from the ticket details, PR title/body, commit messages, and patch. If it is unclear, say what can be inferred and what is missing.
 - If ticket details are missing, focus on correctness, maintainability, security, reliability, and best practices.
 - Cite filenames when making a finding.
 - Separate confirmed issues from risks or questions.
